@@ -11,11 +11,13 @@
 #include "../Common/Message.h"
 #include "ClientHandler.h"
 #include "MessageLogger.h"
+
 using namespace std;
 class ChatServer {
 private:
     uint16_t port;
     string IPA;
+    int Serversocket;
     map<string,ClientHandler*> activeClients;
     mutex clientMutex;
     MessageLogger logger;
@@ -23,7 +25,7 @@ private:
     void acceptConnection();
 
 public:
-    ChatServer(MessageLogger log,uint16_t p = Protocol::DEFAULT_PORT,string IPAddress = Protocol::DEFAULT_SERVER_IP):port(p),IPA(IPAddress),logger(log){};
+    ChatServer(MessageLogger log,uint16_t p = Protocol::DEFAULT_PORT,string IPAddress = Protocol::DEFAULT_SERVER_IP):port(p),logger(log){};
     void start();
     void stop();
     void broadCastMsg(const Message& msg);
