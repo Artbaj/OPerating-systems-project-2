@@ -20,8 +20,8 @@ void ChatServer::start() {
     }
     sockaddr_in server_address;
     server_address.sin_family = AF_INET;
-    server_address.sin_addr.s_addr = inet_addr(Protocol::DEFAULT_SERVER_IP);
-    server_address.sin_port = Protocol::DEFAULT_PORT;
+    server_address.sin_addr.s_addr = inet_addr(ChatServer::IPA.c_str());
+    server_address.sin_port = htons(ChatServer::port);
     if (bind(ChatServer::Serversocket, (struct sockaddr*)&server_address, sizeof(server_address)) < 0) {
         cout << "Error binding socket" <<errno<< endl;
         exit(errno);

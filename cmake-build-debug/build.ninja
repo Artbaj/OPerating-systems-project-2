@@ -97,12 +97,6 @@ build CMakeFiles/SO2.dir/Client/ServerListener.cpp.obj: CXX_COMPILER__SO2_unscan
   OBJECT_DIR = CMakeFiles\SO2.dir
   OBJECT_FILE_DIR = CMakeFiles\SO2.dir\Client
 
-build CMakeFiles/SO2.dir/Server/string.cpp.obj: CXX_COMPILER__SO2_unscanned_Debug C$:/studia/programy/SO2/Server/string.cpp || cmake_object_order_depends_target_SO2
-  DEP_FILE = CMakeFiles\SO2.dir\Server\string.cpp.obj.d
-  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
-  OBJECT_DIR = CMakeFiles\SO2.dir
-  OBJECT_FILE_DIR = CMakeFiles\SO2.dir\Server
-
 
 # =============================================================================
 # Link build statements for EXECUTABLE target SO2
@@ -111,9 +105,9 @@ build CMakeFiles/SO2.dir/Server/string.cpp.obj: CXX_COMPILER__SO2_unscanned_Debu
 #############################################
 # Link the executable SO2.exe
 
-build SO2.exe: CXX_EXECUTABLE_LINKER__SO2_Debug CMakeFiles/SO2.dir/main.cpp.obj CMakeFiles/SO2.dir/Common/Message.cpp.obj CMakeFiles/SO2.dir/Server/ChatServer.cpp.obj CMakeFiles/SO2.dir/Server/ClientHandler.cpp.obj CMakeFiles/SO2.dir/Server/MessageLogger.cpp.obj CMakeFiles/SO2.dir/Server/UserManager.cpp.obj CMakeFiles/SO2.dir/Client/ChatClient.cpp.obj CMakeFiles/SO2.dir/Client/ServerListener.cpp.obj CMakeFiles/SO2.dir/Server/string.cpp.obj
+build SO2.exe: CXX_EXECUTABLE_LINKER__SO2_Debug CMakeFiles/SO2.dir/main.cpp.obj CMakeFiles/SO2.dir/Common/Message.cpp.obj CMakeFiles/SO2.dir/Server/ChatServer.cpp.obj CMakeFiles/SO2.dir/Server/ClientHandler.cpp.obj CMakeFiles/SO2.dir/Server/MessageLogger.cpp.obj CMakeFiles/SO2.dir/Server/UserManager.cpp.obj CMakeFiles/SO2.dir/Client/ChatClient.cpp.obj CMakeFiles/SO2.dir/Client/ServerListener.cpp.obj
   FLAGS = -g
-  LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  LINK_LIBRARIES = -lws2_32  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\SO2.dir
   POST_BUILD = cd .
   PRE_LINK = cd .

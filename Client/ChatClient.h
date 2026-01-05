@@ -16,7 +16,7 @@ class ChatClient {
     uint16_t server_port;
     string IPA;
     string name;
-
+    int clientSocket;
 public:
     ChatClient(string name,uint16_t port,string IPAddress): name(name), IPA(IPAddress), port(port) {};
     void start();
