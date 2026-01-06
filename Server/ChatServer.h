@@ -18,20 +18,22 @@ private:
     uint16_t port;
     string IPA;
     int Serversocket;
+    sockaddr_in server_address;
     map<string,ClientHandler*> activeClients;
     mutex clientMutex;
     MessageLogger logger;
-    void setupSocket();
+    int setupSocket();
     void acceptConnection();
 
 public:
-    ChatServer(MessageLogger log,uint16_t p = Protocol::DEFAULT_PORT,string IPAddress = Protocol::DEFAULT_SERVER_IP):port(p),logger(log){};
+    ChatServer(MessageLogger log,uint16_t p = Protocol::DEFAULT_PORT):port(p),logger(log){};
     void start();
     void stop();
     void broadCastMsg(const Message& msg);
     void sendPrivate(const Message& msg);
     void registerClient(string name);
     void unregisterClient(string name);
+    void printServerInfo(int serverSocket);
 
 };
 

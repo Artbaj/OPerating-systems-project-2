@@ -12,30 +12,83 @@
 #endif
 #include "ChatServer.h"
 #include "../Common/Protocol.h"
-void ChatServer::start() {
+
+
+int ChatServer::setupSocket() {
     ChatServer::Serversocket  = socket(AF_INET, SOCK_STREAM, 0);
     if (ChatServer::Serversocket < 0) {
         cout << "Error creating socket" <<errno<< endl;
-        exit(errno);
+        return -1;
     }
-    sockaddr_in server_address;
     server_address.sin_family = AF_INET;
-    server_address.sin_addr.s_addr = inet_addr(ChatServer::IPA.c_str());
+    server_address.sin_addr.s_addr = INADDR_ANY;
     server_address.sin_port = htons(ChatServer::port);
     if (bind(ChatServer::Serversocket, (struct sockaddr*)&server_address, sizeof(server_address)) < 0) {
-        cout << "Error binding socket" <<errno<< endl;
-        exit(errno);
+        cout << "Error binding socket! Windows Error Code: " <<WSAGetLastError() << endl;
+        return -1;
     }
-    if (listen(ChatServer::Serversocket, Protocol::DEFAULT_QUEUE_SIZE) < 0) {
-        cout << "Error listening socket" <<errno<< endl;
-        exit(errno);
-    }
-    auto addrlen = sizeof(sockaddr);
-    int connection = accept(ChatServer::Serversocket,(struct sockaddr*)&server_address,(socklen_t*)&addrlen);
-    if (connection < 0) {
-        cout << "Error accepting connection" <<errno<< endl;
-        exit(errno);
-    }
-    cout<<"connected"<<connection<<endl;
+    return 0;
+}
 
+void ChatServer::start() {
+    if(ChatServer::setupSocket()) exit(WSAGetLastError());
+    printServerInfo(ChatServer::Serversocket);
+    if (listen(ChatServer::Serversocket, Protocol::DEFAULT_QUEUE_SIZE) < 0) {
+        cout << "Error listening socket" <<WSAGetLastError()<< endl;
+        exit(errno);
+    }
+
+    cout<<"listening"<<endl;
+    sockaddr_in client_address = {};
+    auto addrlen = sizeof(sockaddr_in);
+    while(true){
+        int connection = accept(ChatServer::Serversocket,(struct sockaddr*)&client_address,(socklen_t*)&addrlen);
+        if (connection < 0) {
+            cout << "Error accepting connection" <<errno<< endl;
+            exit(errno);
+        }
+        cout<<"connected "<<connection<<endl;
+        char* msg= nullptr;
+
+        recv(connection,msg,Protocol::MAX_NAME_LEN,0);
+
+
+        cout<<msg;
+
+    }
+
+
+
+}
+
+void ChatServer::printServerInfo(int serverSocket) {
+    char hostname[256];
+    if (gethostname(hostname, sizeof(hostname)) == 0) {
+        struct addrinfo hints = {}, *res;
+        hints.ai_family = AF_INET; // tylko IPv4
+
+        if (getaddrinfo(hostname, nullptr, &hints, &res) == 0) {
+            std::cout << "dostepne adresy" << std::endl;
+            for (struct addrinfo* p = res; p != nullptr; p = p->ai_next) {
+                sockaddr_in* ipv4 = (sockaddr_in*)p->ai_addr;
+                char ip[INET_ADDRSTRLEN];
+                inet_ntop(AF_INET, &(ipv4->sin_addr), ip, INET_ADDRSTRLEN);
+                std::cout << " -> " << ip << std::endl;
+            }
+            freeaddrinfo(res);
+        }
+    }
+}
+
+int main(){
+    WSADATA wsaData;
+    int result = WSAStartup(MAKEWORD(2, 2), &wsaData);
+    if (result != 0) {
+        std::cerr << "WSAStartup failed: " << result << std::endl;
+        return 1;
+    }
+    MessageLogger logger = MessageLogger("./");
+    ChatServer server = ChatServer(logger);
+    server.start();
+    WSACleanup();
 }

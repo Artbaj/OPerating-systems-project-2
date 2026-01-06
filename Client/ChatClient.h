@@ -14,11 +14,12 @@ using namespace std;
 class ChatClient {
     uint16_t port;
     uint16_t server_port;
-    string IPA;
     string name;
+    string IPA;
+
     int clientSocket;
 public:
-    ChatClient(string name,uint16_t port,string IPAddress): name(name), IPA(IPAddress), port(port) {};
+    ChatClient(string name,uint16_t port): name(name), port(port) {};
     void start();
     void setupConnection(uint16_t server_port = Protocol::DEFAULT_PORT);
     void writeMessage();

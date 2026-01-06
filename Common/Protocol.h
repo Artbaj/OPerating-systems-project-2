@@ -9,8 +9,7 @@
 
 namespace Protocol {
 
-    const uint16_t DEFAULT_PORT = 8888;
-    const char* const DEFAULT_SERVER_IP = "127.0.0.1";
+    const uint16_t DEFAULT_PORT =  8080;
     const int  DEFAULT_QUEUE_SIZE = 5;
 
     const size_t MAX_NAME_LEN = 32;

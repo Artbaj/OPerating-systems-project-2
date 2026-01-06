@@ -40,80 +40,113 @@ include CMakeFiles/rules.ninja
 # Logical path to working directory; prefix for absolute paths.
 
 cmake_ninja_workdir = C$:/studia/programy/SO2/cmake-build-debug/
+
+#############################################
+# Utility command for SO2
+
+build SO2: phony CMakeFiles/SO2 ChatClient.exe ChatServer.exe
+
 # =============================================================================
-# Object build statements for EXECUTABLE target SO2
+# Object build statements for EXECUTABLE target ChatServer
 
 
 #############################################
-# Order-only phony target for SO2
+# Order-only phony target for ChatServer
 
-build cmake_object_order_depends_target_SO2: phony || CMakeFiles/SO2.dir
+build cmake_object_order_depends_target_ChatServer: phony || CMakeFiles/ChatServer.dir
 
-build CMakeFiles/SO2.dir/main.cpp.obj: CXX_COMPILER__SO2_unscanned_Debug C$:/studia/programy/SO2/main.cpp || cmake_object_order_depends_target_SO2
-  DEP_FILE = CMakeFiles\SO2.dir\main.cpp.obj.d
+build CMakeFiles/ChatServer.dir/Common/Message.cpp.obj: CXX_COMPILER__ChatServer_unscanned_Debug C$:/studia/programy/SO2/Common/Message.cpp || cmake_object_order_depends_target_ChatServer
+  DEP_FILE = CMakeFiles\ChatServer.dir\Common\Message.cpp.obj.d
   FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
-  OBJECT_DIR = CMakeFiles\SO2.dir
-  OBJECT_FILE_DIR = CMakeFiles\SO2.dir
+  OBJECT_DIR = CMakeFiles\ChatServer.dir
+  OBJECT_FILE_DIR = CMakeFiles\ChatServer.dir\Common
 
-build CMakeFiles/SO2.dir/Common/Message.cpp.obj: CXX_COMPILER__SO2_unscanned_Debug C$:/studia/programy/SO2/Common/Message.cpp || cmake_object_order_depends_target_SO2
-  DEP_FILE = CMakeFiles\SO2.dir\Common\Message.cpp.obj.d
+build CMakeFiles/ChatServer.dir/Server/ChatServer.cpp.obj: CXX_COMPILER__ChatServer_unscanned_Debug C$:/studia/programy/SO2/Server/ChatServer.cpp || cmake_object_order_depends_target_ChatServer
+  DEP_FILE = CMakeFiles\ChatServer.dir\Server\ChatServer.cpp.obj.d
   FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
-  OBJECT_DIR = CMakeFiles\SO2.dir
-  OBJECT_FILE_DIR = CMakeFiles\SO2.dir\Common
+  OBJECT_DIR = CMakeFiles\ChatServer.dir
+  OBJECT_FILE_DIR = CMakeFiles\ChatServer.dir\Server
 
-build CMakeFiles/SO2.dir/Server/ChatServer.cpp.obj: CXX_COMPILER__SO2_unscanned_Debug C$:/studia/programy/SO2/Server/ChatServer.cpp || cmake_object_order_depends_target_SO2
-  DEP_FILE = CMakeFiles\SO2.dir\Server\ChatServer.cpp.obj.d
+build CMakeFiles/ChatServer.dir/Server/ClientHandler.cpp.obj: CXX_COMPILER__ChatServer_unscanned_Debug C$:/studia/programy/SO2/Server/ClientHandler.cpp || cmake_object_order_depends_target_ChatServer
+  DEP_FILE = CMakeFiles\ChatServer.dir\Server\ClientHandler.cpp.obj.d
   FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
-  OBJECT_DIR = CMakeFiles\SO2.dir
-  OBJECT_FILE_DIR = CMakeFiles\SO2.dir\Server
+  OBJECT_DIR = CMakeFiles\ChatServer.dir
+  OBJECT_FILE_DIR = CMakeFiles\ChatServer.dir\Server
 
-build CMakeFiles/SO2.dir/Server/ClientHandler.cpp.obj: CXX_COMPILER__SO2_unscanned_Debug C$:/studia/programy/SO2/Server/ClientHandler.cpp || cmake_object_order_depends_target_SO2
-  DEP_FILE = CMakeFiles\SO2.dir\Server\ClientHandler.cpp.obj.d
+build CMakeFiles/ChatServer.dir/Server/MessageLogger.cpp.obj: CXX_COMPILER__ChatServer_unscanned_Debug C$:/studia/programy/SO2/Server/MessageLogger.cpp || cmake_object_order_depends_target_ChatServer
+  DEP_FILE = CMakeFiles\ChatServer.dir\Server\MessageLogger.cpp.obj.d
   FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
-  OBJECT_DIR = CMakeFiles\SO2.dir
-  OBJECT_FILE_DIR = CMakeFiles\SO2.dir\Server
+  OBJECT_DIR = CMakeFiles\ChatServer.dir
+  OBJECT_FILE_DIR = CMakeFiles\ChatServer.dir\Server
 
-build CMakeFiles/SO2.dir/Server/MessageLogger.cpp.obj: CXX_COMPILER__SO2_unscanned_Debug C$:/studia/programy/SO2/Server/MessageLogger.cpp || cmake_object_order_depends_target_SO2
-  DEP_FILE = CMakeFiles\SO2.dir\Server\MessageLogger.cpp.obj.d
+build CMakeFiles/ChatServer.dir/Server/UserManager.cpp.obj: CXX_COMPILER__ChatServer_unscanned_Debug C$:/studia/programy/SO2/Server/UserManager.cpp || cmake_object_order_depends_target_ChatServer
+  DEP_FILE = CMakeFiles\ChatServer.dir\Server\UserManager.cpp.obj.d
   FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
-  OBJECT_DIR = CMakeFiles\SO2.dir
-  OBJECT_FILE_DIR = CMakeFiles\SO2.dir\Server
-
-build CMakeFiles/SO2.dir/Server/UserManager.cpp.obj: CXX_COMPILER__SO2_unscanned_Debug C$:/studia/programy/SO2/Server/UserManager.cpp || cmake_object_order_depends_target_SO2
-  DEP_FILE = CMakeFiles\SO2.dir\Server\UserManager.cpp.obj.d
-  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
-  OBJECT_DIR = CMakeFiles\SO2.dir
-  OBJECT_FILE_DIR = CMakeFiles\SO2.dir\Server
-
-build CMakeFiles/SO2.dir/Client/ChatClient.cpp.obj: CXX_COMPILER__SO2_unscanned_Debug C$:/studia/programy/SO2/Client/ChatClient.cpp || cmake_object_order_depends_target_SO2
-  DEP_FILE = CMakeFiles\SO2.dir\Client\ChatClient.cpp.obj.d
-  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
-  OBJECT_DIR = CMakeFiles\SO2.dir
-  OBJECT_FILE_DIR = CMakeFiles\SO2.dir\Client
-
-build CMakeFiles/SO2.dir/Client/ServerListener.cpp.obj: CXX_COMPILER__SO2_unscanned_Debug C$:/studia/programy/SO2/Client/ServerListener.cpp || cmake_object_order_depends_target_SO2
-  DEP_FILE = CMakeFiles\SO2.dir\Client\ServerListener.cpp.obj.d
-  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
-  OBJECT_DIR = CMakeFiles\SO2.dir
-  OBJECT_FILE_DIR = CMakeFiles\SO2.dir\Client
+  OBJECT_DIR = CMakeFiles\ChatServer.dir
+  OBJECT_FILE_DIR = CMakeFiles\ChatServer.dir\Server
 
 
 # =============================================================================
-# Link build statements for EXECUTABLE target SO2
+# Link build statements for EXECUTABLE target ChatServer
 
 
 #############################################
-# Link the executable SO2.exe
+# Link the executable ChatServer.exe
 
-build SO2.exe: CXX_EXECUTABLE_LINKER__SO2_Debug CMakeFiles/SO2.dir/main.cpp.obj CMakeFiles/SO2.dir/Common/Message.cpp.obj CMakeFiles/SO2.dir/Server/ChatServer.cpp.obj CMakeFiles/SO2.dir/Server/ClientHandler.cpp.obj CMakeFiles/SO2.dir/Server/MessageLogger.cpp.obj CMakeFiles/SO2.dir/Server/UserManager.cpp.obj CMakeFiles/SO2.dir/Client/ChatClient.cpp.obj CMakeFiles/SO2.dir/Client/ServerListener.cpp.obj
+build ChatServer.exe: CXX_EXECUTABLE_LINKER__ChatServer_Debug CMakeFiles/ChatServer.dir/Common/Message.cpp.obj CMakeFiles/ChatServer.dir/Server/ChatServer.cpp.obj CMakeFiles/ChatServer.dir/Server/ClientHandler.cpp.obj CMakeFiles/ChatServer.dir/Server/MessageLogger.cpp.obj CMakeFiles/ChatServer.dir/Server/UserManager.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lws2_32  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
-  OBJECT_DIR = CMakeFiles\SO2.dir
+  OBJECT_DIR = CMakeFiles\ChatServer.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
-  TARGET_FILE = SO2.exe
-  TARGET_IMPLIB = libSO2.dll.a
-  TARGET_PDB = SO2.exe.dbg
+  TARGET_FILE = ChatServer.exe
+  TARGET_IMPLIB = libChatServer.dll.a
+  TARGET_PDB = ChatServer.exe.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target ChatClient
+
+
+#############################################
+# Order-only phony target for ChatClient
+
+build cmake_object_order_depends_target_ChatClient: phony || CMakeFiles/ChatClient.dir
+
+build CMakeFiles/ChatClient.dir/Common/Message.cpp.obj: CXX_COMPILER__ChatClient_unscanned_Debug C$:/studia/programy/SO2/Common/Message.cpp || cmake_object_order_depends_target_ChatClient
+  DEP_FILE = CMakeFiles\ChatClient.dir\Common\Message.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\ChatClient.dir
+  OBJECT_FILE_DIR = CMakeFiles\ChatClient.dir\Common
+
+build CMakeFiles/ChatClient.dir/Client/ChatClient.cpp.obj: CXX_COMPILER__ChatClient_unscanned_Debug C$:/studia/programy/SO2/Client/ChatClient.cpp || cmake_object_order_depends_target_ChatClient
+  DEP_FILE = CMakeFiles\ChatClient.dir\Client\ChatClient.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\ChatClient.dir
+  OBJECT_FILE_DIR = CMakeFiles\ChatClient.dir\Client
+
+build CMakeFiles/ChatClient.dir/Client/ServerListener.cpp.obj: CXX_COMPILER__ChatClient_unscanned_Debug C$:/studia/programy/SO2/Client/ServerListener.cpp || cmake_object_order_depends_target_ChatClient
+  DEP_FILE = CMakeFiles\ChatClient.dir\Client\ServerListener.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\ChatClient.dir
+  OBJECT_FILE_DIR = CMakeFiles\ChatClient.dir\Client
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target ChatClient
+
+
+#############################################
+# Link the executable ChatClient.exe
+
+build ChatClient.exe: CXX_EXECUTABLE_LINKER__ChatClient_Debug CMakeFiles/ChatClient.dir/Common/Message.cpp.obj CMakeFiles/ChatClient.dir/Client/ChatClient.cpp.obj CMakeFiles/ChatClient.dir/Client/ServerListener.cpp.obj
+  FLAGS = -g
+  LINK_LIBRARIES = -lws2_32  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = CMakeFiles\ChatClient.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = ChatClient.exe
+  TARGET_IMPLIB = libChatClient.dll.a
+  TARGET_PDB = ChatClient.exe.dbg
 
 
 #############################################
@@ -138,10 +171,18 @@ build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
 
 build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 
+
+#############################################
+# Phony custom command for CMakeFiles\SO2
+
+build CMakeFiles/SO2 | ${cmake_ninja_workdir}CMakeFiles/SO2: phony ChatServer.exe ChatClient.exe || ChatClient.exe ChatServer.exe
+
 # =============================================================================
 # Target aliases.
 
-build SO2: phony SO2.exe
+build ChatClient: phony ChatClient.exe
+
+build ChatServer: phony ChatServer.exe
 
 # =============================================================================
 # Folder targets.
@@ -151,7 +192,7 @@ build SO2: phony SO2.exe
 #############################################
 # Folder: C:/studia/programy/SO2/cmake-build-debug
 
-build all: phony SO2.exe
+build all: phony ChatServer.exe ChatClient.exe
 
 # =============================================================================
 # Built-in targets

@@ -16,7 +16,7 @@ class ChatServer;
 class ClientHandler {
 public:
 
-    ClientHandler(int socket, ChatServer* server,string cName):clientSocket(socket),server(server),clientName(cName){};
+    ClientHandler(int socket,string cName):clientSocket(socket),clientName(cName){};
 
 
 
@@ -30,7 +30,6 @@ public:
 
 private:
     int clientSocket;
-    ChatServer* server;
     string clientName;
     atomic<bool> connected;
 
