@@ -8,6 +8,8 @@
 #include <map>
 #include <mutex>
 #include <memory>
+#include <list>
+#include <thread>
 #include "../Common/Protocol.h"
 #include "../Common/Message.h"
 #include "ClientHandler.h"
@@ -25,14 +27,15 @@ private:
     MessageLogger logger;
     int setupSocket();
     int acceptConnection(int clientSocket);
+    list<thread> workers;
 
 public:
     ChatServer(MessageLogger log,uint16_t p = Protocol::DEFAULT_PORT):manager(),port(p),logger(log){};
     void start();
     void stop();
-    void broadCastMsg(const Message& msg);
-    void sendPrivate(const Message& msg);
-    void registerClient(string name);
+    void broadCastMsg( Message& msg);
+    void sendPrivate(Message msg);
+    void registerClient(int clientSocket,string name);
     void unregisterClient(string name);
     void printServerInfo();
 

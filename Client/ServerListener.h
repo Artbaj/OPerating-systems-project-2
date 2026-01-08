@@ -6,7 +6,10 @@
 #define SO2_SERVERLISTENER_H
 
 
+#include <cstdint>
+
 class ServerListener {
+    uint16_t port;
 
 };
 

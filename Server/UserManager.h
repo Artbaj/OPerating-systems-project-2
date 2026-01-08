@@ -21,7 +21,7 @@ public:
 
 
 
-    void addUser(const std::string& name,unique_ptr<ClientHandler> handler);
+    void addUser(const std::string& name,ClientHandler*handler);
 
 
     void removeUser(const std::string& name);
@@ -37,7 +37,7 @@ public:
 
 private:
 
-    map<string,unique_ptr<ClientHandler>> activeClients;
+    map<string,ClientHandler*> activeClients;
     std::mutex usersMutex;
 };
 

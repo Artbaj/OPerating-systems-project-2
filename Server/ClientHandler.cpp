@@ -17,29 +17,100 @@
 #include <thread>
 #include <iostream>
 #include "ClientHandler.h"
+
 using namespace std;
-void handlerLoop(const int& socket,const string& name){
-    int size;
+void ClientHandler::handlerLoop(const int& socket,binary_semaphore& msg_semaphore,vector<Message>& msgs,atomic<bool>& is_active,atomic<bool> &ready){
+    while(is_active&&msgs.size()<Protocol::DEFAULT_MSG_QUEUE_SIZE){
+        int size;
 
-    vector<char> buff(1);
-    size = recv(socket,buff.data(),1,0);
+        vector<char> buff(1);
+        size = recv(socket,buff.data(),sizeof(int),0);
 
-    if(size<0){
-        cout<<WSAGetLastError();
+        if(size<0){
+            cout<<WSAGetLastError();
+        }
+        size = buff[0];
+        buff.clear();
+        buff.resize(size);
+
+
+        if(recv(socket,buff.data(),size,0)<0){
+            cout<<WSAGetLastError();
+        }
+
+        string out(buff.begin(), buff.end());
+
+        ready=false;
+
+        msg_semaphore.acquire();
+
+        msgs.emplace_back(out);
+        msg_semaphore.release();
+        ready= true;
     }
-    buff.resize(size);
-
-    size = recv(socket,buff.data(),size,0);
-    if(size<0){
-        cout<<WSAGetLastError();
-    }
-
 
 }
+
+void ClientHandler::handleIncomingMessage(vector<Message>& msgs,atomic<bool>& is_active,binary_semaphore& msg_semaphore,ChatServer* server,atomic<bool> &ready) {
+    while(is_active){
+
+        if(ready==true){
+
+            msg_semaphore.acquire();
+            cout<<"aquired"<<endl;
+            for(int i=msgs.size()-1;i>=0;i--){
+               Message msg = msgs[i]; //Zapis w msgs jest bledny
+                cout<<i<<" "<<msg.content<<endl;
+
+                if(msg.type==MessageType::PRIVATE) server->sendPrivate(msg);
+                msgs.pop_back();
+            }
+            ready=false;
+            msg_semaphore.release();
+            cout<<"released"<<endl;
+        }
+
+    }
+}
+
 void ClientHandler::start() {
-    cout<<clientName;
-    thread  readingThread(handlerLoop,cref(clientSocket), cref(clientName));
-    readingThread.join();
+
+    msgs.reserve(Protocol::DEFAULT_MSG_QUEUE_SIZE);
+    is_active = true;
+    readingThread = thread(&ClientHandler::handlerLoop,this,cref(clientSocket),ref(msg_semaphore),ref(msgs),ref(is_active),ref(ready));
+    parsingThread = thread(&ClientHandler::handleIncomingMessage,this,ref(msgs),ref(is_active),ref(msg_semaphore),server,ref(ready));
+
 }
+
+void ClientHandler::sendMessage(Message msg) {
+    cout<<endl<<endl<<endl;
+    cout<<msg.toString()<<endl;
+    cout<<endl<<endl<<endl;
+    string sendContent = msg.toString();
+    int scket =getClientSocket();
+    string nme = getClientName();
+    int size = msg.getSize();
+    vector<char> buff(1);
+    buff[0] = size;
+
+
+    send(clientSocket,buff.data(),sizeof(int),0);
+
+    send(clientSocket,sendContent.c_str(),size,0);
+
+
+}
+
+ClientHandler::~ClientHandler() {
+    is_active = false;
+
+    readingThread.join();
+    parsingThread.join();
+
+
+}
+
+
+
 
 
