@@ -59,9 +59,9 @@ void ClientHandler::handleIncomingMessage(vector<Message>& msgs,atomic<bool>& is
             msg_semaphore.acquire();
             cout<<"aquired"<<endl;
             for(int i=msgs.size()-1;i>=0;i--){
-               Message msg = msgs[i]; //Zapis w msgs jest bledny
+               Message msg = msgs[i];
                 cout<<i<<" "<<msg.content<<endl;
-
+                if(msg.content=="disconnect") server->unregisterClient(msg.sender);
                 if(msg.type==MessageType::PRIVATE) server->sendPrivate(msg);
                 else if(msg.type==MessageType::GROUP) server->broadCastMsg(msg);
                 msgs.pop_back();
@@ -105,7 +105,8 @@ void ClientHandler::sendMessage(Message msg) {
 
 ClientHandler::~ClientHandler() {
     is_active = false;
-
+    Message msg("disconected",1);
+    sendMessage(msg);
     readingThread.join();
     parsingThread.join();
 

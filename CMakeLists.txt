@@ -30,8 +30,6 @@ add_executable(ChatClient
         ${COMMON_SOURCES}
         Client/ChatClient.cpp
         Client/ChatClient.h
-        Client/ServerListener.cpp
-        Client/ServerListener.h
         # Jeśli main klienta jest w osobnym pliku, dodaj go tutaj.
 )
 

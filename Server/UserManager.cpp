@@ -38,3 +38,17 @@ std::vector<ClientHandler *> UserManager::getAllHandlers() {
     }
     return out;
 }
+
+void UserManager::removeUser( string name) {
+    auto it = activeClients.find(name);
+
+    if (it != activeClients.end()) {
+        activeClients.erase(name);
+
+        delete it->second;
+    }
+    else{
+        cout<<"nie ma takiego uzytkownika"<<endl;
+    }
+
+}

@@ -24,7 +24,7 @@ public:
     void addUser(const std::string& name,ClientHandler*handler);
 
 
-    void removeUser(const std::string& name);
+    void removeUser( std::string name);
 
 
     ClientHandler* getHandler(const std::string& name);

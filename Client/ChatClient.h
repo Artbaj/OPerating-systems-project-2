@@ -11,7 +11,7 @@
 #include <vector>
 #include "../Common/Protocol.h"
 #include "../Common/Message.h"
-#include "ServerListener.h"
+
 
 class ServerListener;
 
@@ -37,7 +37,7 @@ public:
     void sendMessage(Message msg);
     void recieveMessage(int port,atomic<bool>& reday,vector<Message>&smgs);
     void readMessages();
-
+    void disconnect();
 };
 
 

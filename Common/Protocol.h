@@ -21,11 +21,9 @@ namespace Protocol {
         SUCCESS = 0,
         ERR_NAME_TAKEN = 1,
         ERR_UNKNOWN_RECIPIENT = 2,
-        ERR_SERVER_FULL = 3
+        disconnect
     };
 
 
-    const char CMD_SEPARATOR = ':';
-    const char* const CMD_EXIT = "/quit";
 }
 #endif //SO2_PROTOCOL_H

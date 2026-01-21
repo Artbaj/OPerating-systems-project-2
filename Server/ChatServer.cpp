@@ -139,6 +139,9 @@ void ChatServer::registerClient(int clientSocket,string name) {
 }
 
 void ChatServer::stop() {
+    for(auto& handler:manager.getAllHandlers()){
+        manager.removeUser(handler->getClientName());
+    }
     for(auto& t:workers){
         if(t.joinable()) t.join();
     }
@@ -148,6 +151,11 @@ void ChatServer::broadCastMsg(Message &msg) {
     for(auto& handler:manager.getAllHandlers()){
         handler->sendMessage(msg);
     }
+}
+
+void ChatServer::unregisterClient(string name) {
+    manager.removeUser(name);
+    cout<<name<<" unregistered"<<endl;
 }
 
 int main(){

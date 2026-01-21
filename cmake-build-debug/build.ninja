@@ -124,12 +124,6 @@ build CMakeFiles/ChatClient.dir/Client/ChatClient.cpp.obj: CXX_COMPILER__ChatCli
   OBJECT_DIR = CMakeFiles\ChatClient.dir
   OBJECT_FILE_DIR = CMakeFiles\ChatClient.dir\Client
 
-build CMakeFiles/ChatClient.dir/Client/ServerListener.cpp.obj: CXX_COMPILER__ChatClient_unscanned_Debug C$:/studia/programy/SO2/Client/ServerListener.cpp || cmake_object_order_depends_target_ChatClient
-  DEP_FILE = CMakeFiles\ChatClient.dir\Client\ServerListener.cpp.obj.d
-  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
-  OBJECT_DIR = CMakeFiles\ChatClient.dir
-  OBJECT_FILE_DIR = CMakeFiles\ChatClient.dir\Client
-
 
 # =============================================================================
 # Link build statements for EXECUTABLE target ChatClient
@@ -138,7 +132,7 @@ build CMakeFiles/ChatClient.dir/Client/ServerListener.cpp.obj: CXX_COMPILER__Cha
 #############################################
 # Link the executable ChatClient.exe
 
-build ChatClient.exe: CXX_EXECUTABLE_LINKER__ChatClient_Debug CMakeFiles/ChatClient.dir/Common/Message.cpp.obj CMakeFiles/ChatClient.dir/Client/ChatClient.cpp.obj CMakeFiles/ChatClient.dir/Client/ServerListener.cpp.obj
+build ChatClient.exe: CXX_EXECUTABLE_LINKER__ChatClient_Debug CMakeFiles/ChatClient.dir/Common/Message.cpp.obj CMakeFiles/ChatClient.dir/Client/ChatClient.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lws2_32  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\ChatClient.dir
