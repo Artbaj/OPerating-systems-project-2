@@ -9,9 +9,9 @@ using namespace std;
 void UserManager::addUser(const string &name, ClientHandler* handler) {
     usersMutex.lock();
     activeClients[name] =handler;
-
-    activeClients[name]->start();
     usersMutex.unlock();
+    activeClients[name]->start();
+
 }
 
 bool UserManager::isUsernameTaken(const string &name) {
@@ -47,8 +47,6 @@ void UserManager::removeUser( string name) {
 
         delete it->second;
     }
-    else{
-        cout<<"nie ma takiego uzytkownika"<<endl;
-    }
+   
 
 }

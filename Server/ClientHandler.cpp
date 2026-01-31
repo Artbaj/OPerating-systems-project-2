@@ -34,7 +34,7 @@ void ClientHandler::handlerLoop(const int& socket,binary_semaphore& msg_semaphor
         buff.resize(size);
 
 
-        if(recv(socket,buff.data(),size,0)<0){
+        if(recv(socket,buff.data(),size,0)>254){
             cout<<WSAGetLastError();
         }
 
@@ -48,7 +48,7 @@ void ClientHandler::handlerLoop(const int& socket,binary_semaphore& msg_semaphor
         msg_semaphore.release();
         ready= true;
     }
-
+    return;
 }
 
 void ClientHandler::handleIncomingMessage(vector<Message>& msgs,atomic<bool>& is_active,binary_semaphore& msg_semaphore,ChatServer* server,atomic<bool> &ready) {
@@ -68,14 +68,17 @@ void ClientHandler::handleIncomingMessage(vector<Message>& msgs,atomic<bool>& is
                 if(msg.type==MessageType::PRIVATE) server->sendPrivate(msg);
                 else if(msg.type==MessageType::GROUP) server->broadCastMsg(msg);
                 msgs.pop_back();
+
                 msg_semaphore.release();
             }
+
             ready=false;
 
 
         }
 
     }
+    return;
 }
 
 void ClientHandler::start() {
@@ -83,7 +86,9 @@ void ClientHandler::start() {
     msgs.reserve(Protocol::DEFAULT_MSG_QUEUE_SIZE);
     is_active = true;
     readingThread = thread(&ClientHandler::handlerLoop,this,cref(clientSocket),ref(msg_semaphore),ref(msgs),ref(is_active),ref(ready));
+    readingThread.detach();
     parsingThread = thread(&ClientHandler::handleIncomingMessage,this,ref(msgs),ref(is_active),ref(msg_semaphore),server,ref(ready));
+   parsingThread.detach();
 
 }
 
@@ -91,7 +96,7 @@ void ClientHandler::sendMessage(Message msg) {
 
 
     string sendContent = msg.toString();
-    int scket =getClientSocket();
+
     string nme = getClientName();
     uint8_t size = msg.getSize();
     vector<char> buff(1);
@@ -107,10 +112,10 @@ void ClientHandler::sendMessage(Message msg) {
 
 ClientHandler::~ClientHandler() {
     is_active = false;
+
     Message msg("disconected",1);
     sendMessage(msg);
-    readingThread.join();
-    parsingThread.join();
+
 
 
 }

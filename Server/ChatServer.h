@@ -41,6 +41,7 @@ public:
     void registerClient(int clientSocket,string name);
     void unregisterClient(string name);
     void printServerInfo();
+    void handleClientHandshake(int clientSocket);
 
 };
 

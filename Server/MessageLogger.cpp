@@ -7,18 +7,17 @@
 
 void MessageLogger::Log(Message& msg) {
 
+
     std::thread worker([this, msg]() {
+
         std::lock_guard<std::mutex> lock(logmtx);
 
-        if(plik.is_open()){
-
-            plik<<msg.converted<<endl;
+        if (plik.is_open()) {
+            plik << msg.converted << std::endl;
         }
-        return;
+
     });
 
-// WAŻNE: Musisz zdecydować co zrobić z wątkiem
     worker.detach();
-
 
 }

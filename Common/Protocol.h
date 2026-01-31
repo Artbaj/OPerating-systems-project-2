@@ -11,8 +11,8 @@
 namespace Protocol {
 
     const uint16_t DEFAULT_PORT =  8080;
-    const int  DEFAULT_QUEUE_SIZE = 20;
-    const int DEFAULT_MSG_QUEUE_SIZE = 40;
+    const int  DEFAULT_QUEUE_SIZE = 20000;
+    const int DEFAULT_MSG_QUEUE_SIZE = 4000;
     const size_t MAX_NAME_LEN = 32;
     const size_t MAX_CONTENT_LEN = 512;
 

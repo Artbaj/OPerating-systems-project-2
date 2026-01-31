@@ -35,12 +35,12 @@ int ChatServer::setupSocket() {
 void ChatServer::start() {
     if(ChatServer::setupSocket()) exit(WSAGetLastError());
     printServerInfo();
-    if (listen(ChatServer::Serversocket, Protocol::DEFAULT_QUEUE_SIZE) < 0) {
+    if (listen(ChatServer::Serversocket, SOMAXCONN)  < 0) {
         cout << "Error listening socket" <<WSAGetLastError()<< endl;
         exit(errno);
     }
 
-    cout<<"listening"<<endl;
+
     sockaddr_in client_address = {};
     auto addrlen = sizeof(sockaddr_in);
     while(true){
@@ -50,8 +50,9 @@ void ChatServer::start() {
             cout << "Error accepting connection" <<errno<< endl;
             exit(errno);
         }
+        thread t(&ChatServer::handleClientHandshake, this, clientSocket);
+        t.detach();
 
-       if(acceptConnection(clientSocket)) cout<<"imie zajete";
 
     }
 
@@ -78,43 +79,59 @@ void ChatServer::printServerInfo() {
     }
 }
 
-int ChatServer::acceptConnection(int clientSocket) {
 
 
+
+
+void ChatServer::handleClientHandshake(int clientSocket) {
     uint8_t size;
-
     vector<char> buff(1);
-    size = recv(clientSocket,buff.data(),sizeof(uint8_t ),0);
 
-    if(size<0){
-        cout<<WSAGetLastError();
+
+    int res = recv(clientSocket, buff.data(), sizeof(uint8_t), 0);
+
+    if(res <= 0){
+
+#ifdef _WIN32
+        closesocket(clientSocket);
+#else
+        close(clientSocket);
+#endif
+        return;
     }
+
     size = buff[0];
     buff.clear();
     buff.resize(size);
 
-
-    if(recv(clientSocket,buff.data(),size,0)<0){
-        cout<<WSAGetLastError();
+    if(recv(clientSocket, buff.data(), size, 0) <= 0){
+#ifdef _WIN32
+        closesocket(clientSocket);
+#else
+        close(clientSocket);
+#endif
+        return;
     }
 
     string name(buff.begin(), buff.end());
-    cout<<"connected:"<<name<<endl;
 
+
+    cout << "connected: " << name << endl;
 
     if(!manager.isUsernameTaken(name)) {
-
-        workers.emplace_back(&ChatServer::registerClient,this,clientSocket,name);
-
-
-        return 0;
+        // Rejestracja właściwa
+        registerClient(clientSocket, name);
+    } else {
+        cout << "Name taken: " << name << endl;
+#ifdef _WIN32
+        closesocket(clientSocket);
+#else
+        close(clientSocket);
+#endif
     }
-    else return 1;
-
 }
-
 void ChatServer::sendPrivate(Message msg) {
-    thread sender([this,msg]() {
+
 
         ClientHandler* recipient = manager.getHandler(msg.recipient);
         if(recipient!= nullptr){
@@ -123,12 +140,10 @@ void ChatServer::sendPrivate(Message msg) {
         }
         else {
             Message error("Nie ma takiego uzytkownika",1);
-            recipient = manager.getHandler(msg.sender);
-            recipient->sendMessage(error);
+            //recipient = manager.getHandler(msg.sender);
+            //recipient->sendMessage(error);
         }
 
-    });
-    sender.join();
 
 
 }
@@ -152,7 +167,7 @@ void ChatServer::stop() {
 void ChatServer::broadCastMsg(Message &msg) {
 
 
-    cout<<msg.converted;
+
     for(auto& handler:manager.getAllHandlers()){
         handler->sendMessage(msg);
     }
@@ -160,7 +175,7 @@ void ChatServer::broadCastMsg(Message &msg) {
 
 void ChatServer::unregisterClient(string name) {
     manager.removeUser(name);
-    cout<<name<<" unregistered"<<endl;
+
 }
 
 int main(){

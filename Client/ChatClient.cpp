@@ -104,6 +104,23 @@ void ChatClient::showMenu() {
                 exitRequested = true;
                 cout << "[!] Zamykanie klienta..." << endl;
                 break;
+
+
+
+            case 9: // Ukryta opcja dla bota
+                if(isActive) {
+                    // Uruchamiamy wątek spamujący w tle
+                    thread spammer(&ChatClient::startSpamming, this);
+                    spammer.detach();
+
+                    // Blokujemy główne menu, żeby bot nie wyszedł
+
+                } else {
+                    cout << "Najpierw polacz (opcja 1)!" << endl;
+                }
+                break;
+
+
             default:
                 cout << "[X] Niepoprawna opcja!" << endl;
         }
@@ -212,7 +229,42 @@ void ChatClient::disconnect() {
     isActive = false;
     if(serverListener.joinable()) serverListener.join();
 }
+void ChatClient::startSpamming() {
 
+
+    int counter = 0;
+
+    // Lista przykładowych wiadomości do losowania
+    vector<string> texts = {
+            "Pozdro z botnetu!",
+            "Czy to dziala?",
+            "Jeden rabin powie tak...",
+            "A inny powie nie.",
+            "Flooding test...",
+            "Ping!",
+            "Pong!"
+    };
+
+    while (isActive) {
+        // Losujemy treść
+        string randomText = texts[rand() % texts.size()] + " [" + to_string(counter++) + "]";
+
+        // Tworzymy wiadomość (broadcast do wszystkich = "0")
+        Message msg(name, "0", randomText);
+        sendMessage(msg);
+
+
+        while (isActive) {
+            // ... twoja logika wysyłania ...
+            Message msg(name, "0", "Atak klonow!");
+            sendMessage(msg);
+
+            int sleepTime = 2000 + (rand() % 3000);
+            std::this_thread::sleep_for(std::chrono::milliseconds(sleepTime));
+        }
+
+    }
+}
 
 int main(){
     WSADATA wsaData;

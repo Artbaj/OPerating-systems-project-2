@@ -38,6 +38,8 @@ public:
     void recieveMessage(int port,atomic<bool>& reday,vector<Message>&smgs);
     void readMessages();
     void disconnect();
+
+    void startSpamming();
 };
 
 
